@@ -13,25 +13,17 @@
 
 ## Установка
 
-Репозиторий приватный, поэтому прямая ссылка на `raw.githubusercontent.com` не сработает
-(CLI не подставляет токен). Рабочий путь — tap, он читает репозиторий с вашими правами:
-
 ```bash
-hermes skills tap add zorca/hermes-dvoika            # уже добавлен
-hermes skills install zorca/hermes-dvoika/dvoika -y  # -> Installed: dvoika
+hermes skills install https://raw.githubusercontent.com/zorca/hermes-dvoika/main/skills/dvoika/SKILL.md -y
 hermes skills check                                  # -> dvoika | skills.sh | up_to_date
 ```
 
+Альтернатива, если репозиторий когда-нибудь снова станет приватным: `hermes skills tap add zorca/hermes-dvoika`, затем `hermes skills install zorca/hermes-dvoika/dvoika -y`.
+
 Установлено и проверено 2026-10-08: файлы в `$HERMES_HOME/skills/dvoika/`, реестр знает
-скилл (`created_by: installed`). Учтите: `hermes skills search` и `inspect` этот скилл не
-находят — они смотрят в хаб, а не в tap; в таблице `hermes skills list` он появится
-после первого реального использования.
-
-Если репозиторий сделать публичным, заработает и прямая установка:
-
-```bash
-hermes skills install https://raw.githubusercontent.com/zorca/hermes-dvoika/main/skills/dvoika/SKILL.md
-```
+скилл (`created_by: installed`), сам скилл грузится (`readiness: available`). Учтите:
+`hermes skills search` и `inspect` смотрят в хаб и этот скилл не находят; в таблице
+`hermes skills list` он появится после первого реального использования.
 
 Триггеры: `двойка`, `прогони через двойку`, `Claude + DeepSeek`, `совет`,
 `red team this`, `через 2 модели`, `прокритикуй решение`.
