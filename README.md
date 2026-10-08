@@ -13,9 +13,20 @@
 
 ## Установка
 
+Репозиторий приватный, поэтому прямая ссылка на `raw.githubusercontent.com` не сработает
+(CLI не подставляет токен). Рабочий путь — tap, он читает репозиторий с вашими правами:
+
 ```bash
-hermes skills install https://raw.githubusercontent.com/zorca/hermes-dvoika/main/SKILL.md
+hermes skills tap add zorca/hermes-dvoika     # уже добавлен
+hermes skills search dvoika
+hermes skills install zorca/hermes-dvoika/dvoika
 hermes skills list | grep dvoika
+```
+
+Если репозиторий сделать публичным, заработает и прямая установка:
+
+```bash
+hermes skills install https://raw.githubusercontent.com/zorca/hermes-dvoika/main/skills/dvoika/SKILL.md
 ```
 
 Триггеры: `двойка`, `прогони через двойку`, `Claude + DeepSeek`, `совет`,
@@ -30,13 +41,19 @@ hermes skills list | grep dvoika
 - `references/projects.md` — таблица ваших проектов: чем критик обязан проверять
   (команды тестов, ограничения веток и стендов).
 
-## Механизмы (проверены на машине)
+## Механизмы (что реально проверено)
 
 ```bash
 hermes -z "…" -m deepseek-flash  --provider deepseek    # работяга
 hermes -z "…" -m claude-sonnet-5 --provider anthropic   # дирижёр / критик
 hermes moa configure && hermes moa list                 # пресет: references + агрегатор
 ```
+
+Проверено 2026-10-08 на этой машине: `deepseek-flash` через `hermes -z … -m … --provider …`
+отвечает (получено `ok`); механизм один и тот же для любой пары. Тогда же прогон с
+`claude-sonnet-5` ушёл в таймаут, потому что креденшел Anthropic был в состоянии
+`exhausted` — перед прогоном проверяйте `hermes auth status` и обновляйте креденшел
+(`hermes auth add anthropic` / `hermes login`), иначе команда просто провисит до таймаута.
 
 `-z` (`--oneshot`) принимает промпт **значением флага**; флаги подкоманды `chat`
 (`-Q` и прочие) в этом режиме не работают. `delegate_task` сюда не подходит: дети

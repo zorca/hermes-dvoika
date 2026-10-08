@@ -3,6 +3,15 @@
 Проверено на этой машине: одна сессия Hermes, путь к CLI —
 `/c/Users/zorca/AppData/Local/hermes/hermes-agent/venv/Scripts/hermes`.
 
+**Перед прогоном — проверить креденшелы.** Если статус модели `exhausted` (бывает у
+Anthropic-пула), одноразовый вызов не падает с ошибкой, а висит до таймаута:
+
+```bash
+hermes auth status        # или hermes auth list
+```
+
+Обновление: `hermes auth add anthropic` либо `hermes login`.
+
 ## 0. Проверка, что пара действительно работает
 
 ```bash
@@ -14,7 +23,8 @@ hermes -z "Ответь ровно одним словом: ok" -m claude-sonnet
 
 Промпт передаётся **значением флага** `-z` (`--oneshot`). Флаги подкоманды `chat`
 (`-Q`, `--quiet`, `--max-turns`) в этом режиме не принимаются: они работают только
-как `hermes chat -q "…" -Q`.
+как `hermes chat -q "…" -Q`. Факт проверки 2026-10-08: DeepSeek ответил `ok`;
+Claude не ответил из-за `exhausted` креденшела (не из-за синтаксиса команды).
 
 ## 1. MoA-пресет (основной путь)
 
@@ -82,8 +92,15 @@ hermes logs                 # журнал запусков
 
 ## 5. Установка и проверка скилла
 
+Репозиторий приватный — прямая ссылка на raw не работает, ставим через tap:
+
 ```bash
-hermes skills install https://raw.githubusercontent.com/zorca/hermes-dvoika/main/SKILL.md
+hermes skills tap add zorca/hermes-dvoika
+hermes skills search dvoika
+hermes skills install zorca/hermes-dvoika/dvoika
 hermes skills list | grep dvoika
 hermes skills inspect dvoika
 ```
+
+Если репозиторий публичный, годится и прямая ссылка:
+`hermes skills install https://raw.githubusercontent.com/zorca/hermes-dvoika/main/skills/dvoika/SKILL.md`.
