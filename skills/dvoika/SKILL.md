@@ -2,7 +2,7 @@
 name: dvoika
 description: "Use when a decision is expensive to get wrong: run it through the Claude + DeepSeek pair (conductor + worker, critique in an isolated pass). Triggers: 'двойка', 'прогони через двойку', 'Claude + DeepSeek', 'совет', 'red team this', 'через 2 модели', 'прокритикуй решение'. Do NOT use for trivial tasks, bugfixes, small patches, lookups or single facts."
 version: 1.0.0
-author: zorca (idea and original skill: HinkoK/hermes-troitsa, MIT)
+author: "zorca (идея и оригинальный скилл HinkoK/hermes-troitsa, MIT)"
 license: MIT
 platforms: [windows, linux, macos]
 metadata:

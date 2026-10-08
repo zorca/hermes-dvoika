@@ -92,15 +92,19 @@ hermes logs                 # журнал запусков
 
 ## 5. Установка и проверка скилла
 
-Репозиторий приватный — прямая ссылка на raw не работает, ставим через tap:
+Репозиторий приватный — прямая ссылка на raw не работает, ставим через tap (проверено):
 
 ```bash
 hermes skills tap add zorca/hermes-dvoika
-hermes skills search dvoika
-hermes skills install zorca/hermes-dvoika/dvoika
-hermes skills list | grep dvoika
-hermes skills inspect dvoika
+hermes skills install zorca/hermes-dvoika/dvoika -y   # -> Installed: dvoika
+hermes skills check                                   # -> dvoika | skills.sh | up_to_date
 ```
+
+Файлы лягут в `$HERMES_HOME/skills/dvoika/`. Что важно знать про проверки:
+`hermes skills search` и `hermes skills inspect` смотрят в хаб и этот скилл не находят —
+ориентируйтесь на `hermes skills check` и наличие файлов на диске. В таблице
+`hermes skills list` скилл появится после первого реального использования
+(до этого у него `first_seen_at: null`).
 
 Если репозиторий публичный, годится и прямая ссылка:
 `hermes skills install https://raw.githubusercontent.com/zorca/hermes-dvoika/main/skills/dvoika/SKILL.md`.

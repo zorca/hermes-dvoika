@@ -17,11 +17,15 @@
 (CLI не подставляет токен). Рабочий путь — tap, он читает репозиторий с вашими правами:
 
 ```bash
-hermes skills tap add zorca/hermes-dvoika     # уже добавлен
-hermes skills search dvoika
-hermes skills install zorca/hermes-dvoika/dvoika
-hermes skills list | grep dvoika
+hermes skills tap add zorca/hermes-dvoika            # уже добавлен
+hermes skills install zorca/hermes-dvoika/dvoika -y  # -> Installed: dvoika
+hermes skills check                                  # -> dvoika | skills.sh | up_to_date
 ```
+
+Установлено и проверено 2026-10-08: файлы в `$HERMES_HOME/skills/dvoika/`, реестр знает
+скилл (`created_by: installed`). Учтите: `hermes skills search` и `inspect` этот скилл не
+находят — они смотрят в хаб, а не в tap; в таблице `hermes skills list` он появится
+после первого реального использования.
 
 Если репозиторий сделать публичным, заработает и прямая установка:
 
